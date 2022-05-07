@@ -1,9 +1,10 @@
 const router = require("express").Router();
-
-router.get("/", function (req, res) {
-  console.log("Its working!");
-
-  res.send("Response is working");
-});
+const {
+  getAllUsers,
+  getUserById,
+  createUser,
+  updateUser,
+  deleteUser,
+} = require("../../controllers/user-controller");
 
 module.exports = router;

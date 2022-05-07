@@ -17,21 +17,20 @@ const UserSchema = new Schema(
         /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/,
         "Please add a valid email address.",
       ],
-      //email validation = regex??
     },
-    thoughts: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Thought",
-      },
-    ],
-    friends: [
-      {
-        //this.user.friends.length
-        type: Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
+    // thoughts: [
+    //   {
+    //     type: Schema.Types.ObjectId,
+    //     ref: "Thought",
+    //   },
+    // ],
+    // friends: [
+    //   {
+    //     //this.user.friends.length
+    //     type: Schema.Types.ObjectId,
+    //     ref: "User",
+    //   },
+    // ],
   },
   {
     toJSON: {
@@ -44,10 +43,7 @@ const UserSchema = new Schema(
 
 //length
 UserSchema.virtual("friendCount").get(function () {
-  return this.users.reduce(
-    (total, users) => total + users.friends.length + 1,
-    0
-  );
+  return this.replies.length;
 });
 
 const User = model("User", UserSchema);
