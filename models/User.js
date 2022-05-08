@@ -1,19 +1,12 @@
 const { Schema, model } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
 
-// const friendSchema = new Schema({
-//  friends: {
-//     type: Schema.Types.ObjectId,
-//     default: () => new Types.ObjectId(),
-//   },
-// });
-
 const UserSchema = new Schema(
   {
     username: {
       type: String,
-      unique: true,
       required: true,
+      unique: true,
       trim: true,
     },
     email: {
@@ -25,18 +18,13 @@ const UserSchema = new Schema(
         "Please add a valid email address.",
       ],
     },
-    // thoughts: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "Thought",
-    //   },
-    // ],
-    // friends: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: this.user.friends.length,
-    //   },
-    // ],
+    // thoughts: {
+
+    // },
+    friends: {
+      type: String,
+      ref: "User",
+    },
   },
   {
     toJSON: {
@@ -47,7 +35,6 @@ const UserSchema = new Schema(
   }
 );
 
-//length
 UserSchema.virtual("friendCount").get(function () {
   return this.friends.length;
 });
