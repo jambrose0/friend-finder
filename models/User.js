@@ -1,6 +1,13 @@
 const { Schema, model } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
 
+// const friendSchema = new Schema({
+//  friends: {
+//     type: Schema.Types.ObjectId,
+//     default: () => new Types.ObjectId(),
+//   },
+// });
+
 const UserSchema = new Schema(
   {
     username: {
@@ -26,9 +33,8 @@ const UserSchema = new Schema(
     // ],
     // friends: [
     //   {
-    //     //this.user.friends.length
     //     type: Schema.Types.ObjectId,
-    //     ref: "User",
+    //     ref: this.user.friends.length,
     //   },
     // ],
   },
@@ -43,7 +49,7 @@ const UserSchema = new Schema(
 
 //length
 UserSchema.virtual("friendCount").get(function () {
-  return this.replies.length;
+  return this.friends.length;
 });
 
 const User = model("User", UserSchema);
