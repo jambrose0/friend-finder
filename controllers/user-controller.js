@@ -4,10 +4,10 @@ const userController = {
   // get all users
   getAllUsers(req, res) {
     User.find({})
-      // .populate({
-      //   path: "friends",
-      //   select: "-_v",
-      // })
+      .populate({
+        path: "friends",
+        select: "-_v",
+      })
       .select("-_v")
       .sort({ _id: -1 })
       .then((dbUserData) => res.json(dbUserData))
