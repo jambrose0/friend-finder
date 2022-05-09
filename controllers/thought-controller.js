@@ -11,24 +11,28 @@ const thoughtController = {
         res.sendStatus(400);
       });
   },
-  addThought({ params, body }, res) {
-    console.log(body);
-    Thought.findOneAndUpdate(body)
-      .then(({ _id }) => {
+  addThought(req, res) {
+    Thought.create(req.body)
+      .then((dbThoughtData) => {
         return User.findOneAndUpdate(
-          { _id: body.userId },
-          { $push: { thoughts: _id } },
+          { _id: req.body.userId },
+          { $push: { thoughts: dbUserData } },
           { new: true }
         );
       })
       .then((dbUserData) => {
         if (!dbUserData) {
-          res.status(404).json({ message: "No user found with this id!" });
-          return;
+          return res
+            .status(404)
+            .json({ message: "Thought created but no user with this id!" });
         }
-        res.json(dbUserData);
+
+        res.json({ message: "Thought successfully created!" });
       })
-      .catch((err) => res.json(err));
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   },
   addReaction({ params, body }, res) {
     Thought.findOneAndUpdate(
