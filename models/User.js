@@ -25,10 +25,12 @@ const UserSchema = new Schema(
         ref: Thought,
       },
     ],
-    friends: {
-      type: String,
-      ref: "User",
-    },
+    friends: [
+      {
+        type: String,
+        ref: "User",
+      },
+    ],
   },
   {
     toJSON: {
