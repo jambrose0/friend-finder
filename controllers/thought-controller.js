@@ -3,10 +3,6 @@ const { Thought, User } = require("../models");
 const thoughtController = {
   getThoughts(req, res) {
     Thought.find({})
-      .populate({
-        path: "user",
-        select: "-_v",
-      })
       .select("-_v")
       .sort({ _id: -1 })
       .then((dbUserData) => res.json(dbUserData))
@@ -17,7 +13,7 @@ const thoughtController = {
   },
   addThought({ params, body }, res) {
     console.log(body);
-    Thought.create(body)
+    Thought.findOneAndUpdate(body)
       .then(({ _id }) => {
         return User.findOneAndUpdate(
           { _id: body.userId },
@@ -60,10 +56,6 @@ const thoughtController = {
   },
   getThoughtById({ params }, res) {
     Thought.findOne({ _id: params.id })
-      .populate({
-        path: "user",
-        select: "-_v",
-      })
       .select("-_v")
       .sort({ _id: -1 })
       .then((dbUserData) => res.json(dbUserData))
