@@ -1,4 +1,4 @@
-const { User } = require("../models/User");
+const { User } = require("../models");
 
 const userController = {
   // get all users
@@ -34,10 +34,17 @@ const userController = {
 
   // create user
   createUser({ body }, res) {
+    console.log(body);
     User.create(body)
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => res.json(err));
   },
+  // create user
+  // createUser({ body }, res) {
+  //   User.create(body)
+  //     .then((dbUserData) => res.json(dbUserData))
+  //     .catch((err) => res.json(err));
+  // },
 
   // update User by id
   updateUser({ params, body }, res) {
