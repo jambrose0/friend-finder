@@ -1,5 +1,6 @@
 const { Schema, model, Types } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
+const Thought = require("./Thought");
 
 const UserSchema = new Schema(
   {
@@ -18,16 +19,16 @@ const UserSchema = new Schema(
         "Please add a valid email address.",
       ],
     },
-    // thoughts: [{
-
-    // }],
-    friends: [
+    thoughts: [
       {
         type: Schema.Types.ObjectId,
-        default: () => new Types.ObjectId(),
-        // ref: "User",
+        ref: Thought,
       },
     ],
+    friends: {
+      type: String,
+      ref: "User",
+    },
   },
   {
     toJSON: {
@@ -38,9 +39,9 @@ const UserSchema = new Schema(
   }
 );
 
-UserSchema.virtual("friendCount").get(function () {
-  return this.friends.length;
-});
+// UserSchema.virtual("friendCount").get(function () {
+//   return this.friends.length;
+// });
 
 const User = model("User", UserSchema);
 
