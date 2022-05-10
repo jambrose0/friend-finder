@@ -30,4 +30,4 @@ None
 
 ## PREVIEW
 
-> ![Screenshot of Usage](assets\screencap.png)
+> ![Screenshot of Usage](./assets/screencap.png)
